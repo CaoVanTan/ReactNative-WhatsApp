@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 
 import ChatListItem from '../components/ChatListItem/ChatListItem';
 import ChatRooms from '../data/ChatRooms';
+import FloatButton from '../components/FloatButton/FloatButton';
 
 export default function ChatsScreen() {
     return (
@@ -12,6 +13,8 @@ export default function ChatsScreen() {
                 renderItem={({ item }) => <ChatListItem chatRoom={item} />}
                 keyExtractor={(item) => item.id}
             />
+
+            <FloatButton />
         </View>
     );
 }

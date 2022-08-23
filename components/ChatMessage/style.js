@@ -4,18 +4,26 @@ import Layout from '../../constants/Layout';
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 8,
-        paddingHorizontal: 16,
+        flex: 1,
+        alignItems: 'flex-end',
+        marginVertical: 6,
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     rightContainer: {
         alignSelf: 'flex-end',
+        paddingLeft: 50,
     },
     leftContainer: {
+        flexDirection: 'row',
         alignSelf: 'flex-start',
+        paddingRight: 80,
     },
     avatar: {
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
+        borderRadius: 15,
+        marginRight: 8,
     },
     messageBox: {
         paddingVertical: 8,
@@ -25,12 +33,10 @@ const styles = StyleSheet.create({
     },
     myMessageBox: {
         backgroundColor: '#dcf8c5',
-        marginLeft: 50,
         alignItems: 'flex-end',
     },
     yourMessageBox: {
-        backgroundColor: '#ccc',
-        marginRight: 50,
+        backgroundColor: Colors.light.bgMessage,
     },
     name: {
         color: Colors.light.tint,

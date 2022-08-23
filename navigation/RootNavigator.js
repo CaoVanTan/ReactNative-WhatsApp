@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Ionicons, MaterialCommunityIcons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import TabNavigator from './TabNavigator';
 import ChatsRoomScreen from '../screens/ChatsRoomScreen';
+import ContactsScreen from '../screens/ContactsScreen';
+import DefaultHeaderRight from '../components/HeaderRight/DefaultHeaderRight';
+import ChatHeaderRight from '../components/HeaderRight/ChatHeaderRight';
+import HeaderTitle from '../components/HeaderRight/HeaderTitle';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,41 +29,24 @@ const RootNavigator = () => {
                 component={TabNavigator}
                 options={{
                     title: 'WhatsApp',
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                width: 60,
-                                backgroundColor: Colors.light.tint,
-                            }}
-                        >
-                            <Ionicons name="search" size={22} color="white" />
-                            <MaterialCommunityIcons name="dots-vertical" size={22} color="white" />
-                        </View>
-                    ),
+                    headerRight: () => <DefaultHeaderRight />,
                 }}
             />
             <Stack.Screen
                 name="ChatsRoom"
                 component={ChatsRoomScreen}
                 options={({ route }) => ({
-                    title: route.params.name,
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                width: 120,
-                                backgroundColor: Colors.light.tint,
-                            }}
-                        >
-                            <MaterialIcons name="call" size={22} color="white" />
-                            <FontAwesome5 name="video" size={22} color="white" />
-                            <MaterialCommunityIcons name="dots-vertical" size={22} color="white" />
-                        </View>
-                    ),
+                    headerTitle: () => <HeaderTitle route={route} />,
+                    headerRight: () => <ChatHeaderRight />,
                 })}
+            />
+            <Stack.Screen
+                name="Contacts"
+                component={ContactsScreen}
+                options={{
+                    title: 'Contacts',
+                    headerRight: () => <DefaultHeaderRight />,
+                }}
             />
         </Stack.Navigator>
     );

@@ -87,5 +87,23 @@ export default {
                 name: 'Vadim',
             },
         },
+        {
+            id: 'm9',
+            content: 'Big Data is really interesting. Cannot wait to go through all the material.',
+            createdAt: '2020-10-03T14:53:00+07:00',
+            user: {
+                id: 'u1',
+                name: 'Vadim',
+            },
+        },
+        {
+            id: 'm10',
+            content: 'Big Data is really interesting. Cannot wait to go through all the material.',
+            createdAt: '2022-08-22T14:53:00+07:00',
+            user: {
+                id: 'u1',
+                name: 'Vadim',
+            },
+        },
     ],
 };

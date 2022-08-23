@@ -13,10 +13,9 @@ const ChatMessage = (props) => {
         return message.user.id == 'u1';
     };
 
-    // console.log(user.imageUri);
     return (
         <View style={[styles.container, isMyMessage() ? styles.rightContainer : styles.leftContainer]}>
-            {/* <Image source={{ uri: user.imageUri }} style={styles.avatar} /> */}
+            {!isMyMessage() && <Image source={{ uri: user.imageUri }} style={styles.avatar} />}
             <View style={[styles.messageBox, isMyMessage() ? styles.myMessageBox : styles.yourMessageBox]}>
                 {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
                 <Text style={styles.message}>{message.content}</Text>

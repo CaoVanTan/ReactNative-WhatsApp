@@ -15,6 +15,7 @@ const ChatListItem = (props) => {
         navigation.navigate('ChatsRoom', {
             id: chatRoom.id,
             name: user.name,
+            avatar: user.imageUri,
         });
     };
 
