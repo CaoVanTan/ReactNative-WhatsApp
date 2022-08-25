@@ -10,7 +10,9 @@ import SignIn from './screens/SignIn';
 import { auth } from './firebase';
 import ContextWrapper from './context/ContextWrapper';
 
-LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
+LogBox.ignoreLogs([
+    'Warning: AsyncStorage has been extracted from react-native core and will be removed in a future release.',
+]);
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +45,7 @@ function App() {
                     <Stack.Screen name="signIn" component={SignIn} />
                 </Stack.Navigator>
             ) : (
-                <RootNavigator />
+                <RootNavigator currentUserName={currentUser.displayName} />
                 // <Text>{JSON.stringify(currentUser)}</Text>
                 // <Text>Hello guy!</Text>
             )}

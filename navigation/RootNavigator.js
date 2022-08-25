@@ -11,12 +11,22 @@ import HeaderRight from '../components/Header/HeaderRight';
 import ChatHeaderRight from '../components/Header/ChatHeaderRight';
 import HeaderTitle from '../components/Header/HeaderTitle';
 import HeaderSearch from '../components/Header/HeaderSearch';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => {
+const RootNavigator = ({ currentUserName }) => {
     return (
         <Stack.Navigator>
+            {currentUserName && (
+                <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            )}
             <Stack.Screen
                 name="Root"
                 component={TabNavigator}

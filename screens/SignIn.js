@@ -12,7 +12,6 @@ const SignIn = () => {
     const [mode, setMode] = useState('signUp');
 
     const handlePress = async () => {
-        console.warn('Disable');
         if (mode === 'signUp') {
             await signUp(email, password);
         } else if (mode === 'signIn') {
