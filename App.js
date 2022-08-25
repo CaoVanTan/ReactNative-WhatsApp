@@ -1,12 +1,70 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, LogBox } from 'react-native';
+import { useEffect, useState } from 'react';
+import { useAssets } from 'expo-asset';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import RootNavigator from './navigation/RootNavigator';
+import SignIn from './screens/SignIn';
+import { auth } from './firebase';
+import ContextWrapper from './context/ContextWrapper';
 
-export default function App() {
+LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setLoading(false);
+            if (user) {
+                setCurrentUser(user);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    if (loading) {
+        return <Text>Loading...</Text>;
+    }
+
     return (
         <NavigationContainer>
-            <RootNavigator />
+            {!currentUser ? (
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    <Stack.Screen name="signIn" component={SignIn} />
+                </Stack.Navigator>
+            ) : (
+                <RootNavigator />
+                // <Text>{JSON.stringify(currentUser)}</Text>
+                // <Text>Hello guy!</Text>
+            )}
         </NavigationContainer>
+    );
+}
+
+export default function Main() {
+    const [assets] = useAssets(
+        require('./assets/icon-square.png'),
+        require('./assets/chatbg.png'),
+        require('./assets/user-icon.png'),
+        require('./assets/welcome-img.png'),
+    );
+
+    if (!assets) {
+        return <Text>Loading...</Text>;
+    }
+    return (
+        <ContextWrapper>
+            <App />
+        </ContextWrapper>
     );
 }
