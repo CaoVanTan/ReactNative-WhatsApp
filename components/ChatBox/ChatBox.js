@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Entypo, FontAwesome5, Fontisto, Feather, Ionicons } from '@expo/vector-icons';
 
 import styles from './style';
+import Colors from '../../constants/Colors';
 
-export default function InputBox() {
+export default function ChatBox() {
     const [message, setMessage] = useState('');
     const [isFocusInput, setIsFocusInput] = useState(false);
 
@@ -35,21 +36,22 @@ export default function InputBox() {
             <View style={styles.inputContainer}>
                 {!isFocusInput ? (
                     <View style={{ flexDirection: 'row' }}>
-                        <Entypo style={styles.attachment} name="attachment" size={18} color="gray" />
-                        <Fontisto style={styles.camera} name="camera" size={18} color="gray" />
+                        <Entypo style={styles.attachment} name="attachment" size={18} color={Colors.light.tint} />
+                        <Fontisto style={styles.camera} name="camera" size={18} color={Colors.light.tint} />
                     </View>
                 ) : (
                     <TouchableOpacity activeOpacity={0.5} onPress={() => setIsFocusInput(false)}>
-                        <Feather style={{ marginLeft: 8 }} name="chevron-right" size={24} color="black" />
+                        <Feather style={{ marginLeft: 8 }} name="chevron-right" size={24} color={Colors.light.tint} />
                     </TouchableOpacity>
                 )}
-                <FontAwesome5 style={styles.emoticon} name="smile" size={22} color="gray" />
+                <FontAwesome5 style={styles.emoticon} name="smile" size={22} color={Colors.light.tint} />
                 <TextInput
                     style={styles.input}
                     value={message}
                     placeholder="Aa"
                     autoComplete="off"
                     multiline
+                    selectionColor={Colors.light.tint}
                     onPressIn={() => setIsFocusInput(true)}
                     onBlur={() => setIsFocusInput(false)}
                     onChangeText={handleChangeInput}
@@ -57,9 +59,9 @@ export default function InputBox() {
             </View>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress} activeOpacity={0.8}>
                 {message.trim().length > 0 ? (
-                    <Ionicons name="send" size={22} color="white" />
+                    <Ionicons name="send" size={22} color={Colors.light.tint} />
                 ) : (
-                    <FontAwesome5 name="microphone" size={22} color="white" />
+                    <FontAwesome5 name="microphone" size={22} color={Colors.light.tint} />
                 )}
             </TouchableOpacity>
         </View>

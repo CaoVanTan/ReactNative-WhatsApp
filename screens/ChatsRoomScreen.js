@@ -3,7 +3,7 @@ import React from 'react';
 
 import Chats from '../data/Chats';
 import ChatMessage from '../components/ChatMessage/ChatMessage';
-import InputBox from '../components/InputBox/InputBox';
+import ChatBox from '../components/ChatBox/ChatBox';
 
 const ChatsRoomScreen = ({ route }) => {
     const { id, name, avatar } = route.params;
@@ -11,7 +11,7 @@ const ChatsRoomScreen = ({ route }) => {
     return (
         <View style={styles.container}>
             <FlatList data={Chats.messages} inverted renderItem={({ item }) => <ChatMessage message={item} />} />
-            <InputBox />
+            <ChatBox />
         </View>
     );
 };

@@ -1,8 +1,6 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 
-import Colors from '../../constants/Colors';
-
 const HeaderTitle = ({ route }) => {
     return (
         <View style={styles.container}>
@@ -27,7 +25,7 @@ const styles = StyleSheet.create({
     userName: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: Colors.light.background,
+        color: 'black',
     },
 });
 

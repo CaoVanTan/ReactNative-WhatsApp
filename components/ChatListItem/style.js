@@ -6,15 +6,15 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 16,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
     },
     leftContainer: {
         flexDirection: 'row',
-        // alignItems: "center"
     },
     avatar: {
-        width: 60,
-        height: 60,
+        width: 56,
+        height: 56,
         borderRadius: 100,
     },
     midContainer: {

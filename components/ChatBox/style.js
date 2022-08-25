@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         paddingRight: 42,
         paddingVertical: 6,
-        backgroundColor: Colors.light.bgMessage,
+        backgroundColor: Colors.light.backgroundIcon,
         borderRadius: 24,
         fontSize: 16,
         maxHeight: 21 * 6,
@@ -42,10 +42,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.light.tint,
-        borderRadius: 50,
-        height: 40,
-        width: 40,
+        paddingRight: 12,
+        paddingLeft: 8,
     },
 });
 

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
-import Layout from '../../constants/Layout';
 
 const styles = StyleSheet.create({
     container: {
@@ -32,18 +31,25 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     myMessageBox: {
-        backgroundColor: '#dcf8c5',
+        backgroundColor: Colors.light.tint,
         alignItems: 'flex-end',
     },
     yourMessageBox: {
-        backgroundColor: Colors.light.bgMessage,
+        backgroundColor: Colors.light.backgroundIcon,
     },
     name: {
-        color: Colors.light.tint,
+        color: Colors.light.text,
         fontWeight: 'bold',
         marginBottom: 4,
     },
-    message: {},
+    myMessage: {
+        color: 'white',
+    },
+    myTime: {
+        marginTop: 4,
+        color: 'white',
+        alignSelf: 'flex-end',
+    },
     time: {
         marginTop: 4,
         color: 'gray',

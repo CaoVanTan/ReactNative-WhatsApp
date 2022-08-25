@@ -18,8 +18,8 @@ const ChatMessage = (props) => {
             {!isMyMessage() && <Image source={{ uri: user.imageUri }} style={styles.avatar} />}
             <View style={[styles.messageBox, isMyMessage() ? styles.myMessageBox : styles.yourMessageBox]}>
                 {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
-                <Text style={styles.message}>{message.content}</Text>
-                <Text style={styles.time}>{moment(message.createdAt).fromNow()}</Text>
+                <Text style={isMyMessage() && styles.myMessage}>{message.content}</Text>
+                <Text style={isMyMessage() ? styles.myTime : styles.time}>{moment(message.createdAt).fromNow()}</Text>
             </View>
         </View>
     );

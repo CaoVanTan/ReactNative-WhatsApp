@@ -1,15 +1,15 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { MaterialCommunityIcons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 
 const ChatHeaderRight = () => {
     return (
         <View style={styles.container}>
-            <MaterialIcons name="call" size={22} color="white" />
-            <FontAwesome5 name="video" size={22} color="white" />
-            <MaterialCommunityIcons name="dots-vertical" size={22} color="white" />
+            <Ionicons name="call" size={22} color={Colors.light.tint} />
+            <Ionicons name="videocam" size={22} color={Colors.light.tint} />
+            <MaterialIcons name="info" size={22} color={Colors.light.tint} />
         </View>
     );
 };
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: 120,
-        backgroundColor: Colors.light.tint,
+        backgroundColor: Colors.light.background,
     },
 });
 
