@@ -1,4 +1,4 @@
-import { Text, View, LogBox } from 'react-native';
+import { Text, LogBox } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useAssets } from 'expo-asset';
 import { NavigationContainer } from '@react-navigation/native';
@@ -45,9 +45,7 @@ function App() {
                     <Stack.Screen name="signIn" component={SignIn} />
                 </Stack.Navigator>
             ) : (
-                <RootNavigator currentUserName={currentUser.displayName} />
-                // <Text>{JSON.stringify(currentUser)}</Text>
-                // <Text>Hello guy!</Text>
+                <RootNavigator currentUser={currentUser} />
             )}
         </NavigationContainer>
     );

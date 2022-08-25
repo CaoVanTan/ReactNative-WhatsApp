@@ -33,10 +33,10 @@ const ProfileScreen = ({ navigation }) => {
 
     const handlePress = async () => {
         const user = auth.currentUser;
-        let pictureURL;
+        let photoURL;
         if (selectedAvatar) {
             const { url } = await uploadImage(selectedAvatar, `images/${user.uid}`, 'profilePicture');
-            pictureURL = url;
+            photoURL = url;
         }
 
         const userData = {
@@ -44,8 +44,8 @@ const ProfileScreen = ({ navigation }) => {
             email: user.email,
         };
 
-        if (pictureURL) {
-            userData.pictureURL = pictureURL;
+        if (photoURL) {
+            userData.photoURL = photoURL;
         }
 
         await Promise.all([

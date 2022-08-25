@@ -15,7 +15,7 @@ export default function ChatBox() {
     };
 
     const onMicrophonePress = () => {
-        console.warn('Microphone');
+        // console.warn('Microphone');
     };
 
     const onSendPress = () => {

@@ -15,10 +15,10 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = ({ currentUserName }) => {
+const RootNavigator = ({ currentUser }) => {
     return (
         <Stack.Navigator>
-            {currentUserName && (
+            {!currentUser.displayName && (
                 <Stack.Screen
                     name="Profile"
                     component={ProfileScreen}
