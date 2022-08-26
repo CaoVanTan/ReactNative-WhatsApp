@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './style';
 import Avatar from '../Avatar/Avatar';
 
-const ContactListItem = (props) => {
+const ListItem = (props) => {
     const { type, description, user, time, room, image } = props;
     const navigation = useNavigation();
 
@@ -15,7 +15,7 @@ const ContactListItem = (props) => {
 
     return (
         <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={handlePress}>
-            <Avatar user={user} size={type === 'contacts' ? 42 : 65} />
+            <Avatar user={user} size={type === 'contacts' ? 42 : 56} />
 
             <View style={styles.rightContainer}>
                 <Text style={styles.userName}>{user.contactName || user.displayName}</Text>
@@ -34,4 +34,4 @@ const ContactListItem = (props) => {
     );
 };
 
-export default ContactListItem;
+export default ListItem;

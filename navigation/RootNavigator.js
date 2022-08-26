@@ -7,7 +7,7 @@ import ChatsRoomScreen from '../screens/ChatsRoomScreen';
 import ContactsScreen from '../screens/ContactsScreen';
 import SearchScreen from '../screens/SearchScreen';
 import HeaderRight from '../components/Header/HeaderRight';
-import ChatHeaderRight from '../components/Header/ChatHeaderRight';
+import ChatHeader from '../components/Header/ChatHeader';
 import HeaderTitle from '../components/Header/HeaderTitle';
 import HeaderSearch from '../components/Header/HeaderSearch';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -37,11 +37,10 @@ const RootNavigator = ({ currentUser }) => {
             <Stack.Screen
                 name="ChatsRoom"
                 component={ChatsRoomScreen}
-                options={({ route }) => ({
-                    headerTitle: () => <HeaderTitle route={route} />,
-                    headerRight: () => <ChatHeaderRight />,
+                options={{
+                    headerTitle: (props) => <ChatHeader {...props} />,
                     headerTintColor: Colors.light.tint,
-                })}
+                }}
             />
             <Stack.Screen
                 name="PersonalInfo"

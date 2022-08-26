@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
-import ContactListItem from '../components/ContactListItem/ContactListItem';
+import ListItem from '../components/ListItem/ListItem';
 import Colors from '../constants/Colors';
 import Context from '../context/Context';
 import useContacts from '../hook/useHook';
@@ -27,7 +27,7 @@ export default function Contacts() {
 }
 
 const ContactPreview = ({ contact, image }) => {
-    const { rooms } = useContext(Context);
+    const { unfilteredRooms } = useContext(Context);
     const [user, setUser] = useState(contact);
 
     useEffect(() => {
@@ -44,11 +44,11 @@ const ContactPreview = ({ contact, image }) => {
     }, []);
 
     return (
-        <ContactListItem
+        <ListItem
             type="contacts"
             user={user}
             image={image}
-            room={rooms.find((room) => room.participantsArray.includes(contact.email))}
+            room={unfilteredRooms.find((room) => room.participantsArray.includes(contact.email))}
         />
     );
 };
