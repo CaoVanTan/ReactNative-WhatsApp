@@ -1,5 +1,7 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import { auth } from '../../firebase';
 
 import Colors from '../../constants/Colors';
@@ -7,8 +9,14 @@ import Colors from '../../constants/Colors';
 const HeaderAvatar = () => {
     const user = auth.currentUser;
 
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+        navigation.navigate('PersonalInfo');
+    };
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={handlePress}>
             <Image
                 style={styles.avatar}
                 source={{
@@ -16,7 +24,7 @@ const HeaderAvatar = () => {
                 }}
                 resizeMode="contain"
             />
-        </View>
+        </TouchableOpacity>
     );
 };
 

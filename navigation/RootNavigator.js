@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { View, Text, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Colors from '../constants/Colors';
@@ -12,6 +11,7 @@ import ChatHeaderRight from '../components/Header/ChatHeaderRight';
 import HeaderTitle from '../components/Header/HeaderTitle';
 import HeaderSearch from '../components/Header/HeaderSearch';
 import ProfileScreen from '../screens/ProfileScreen';
+import PersonalInfoScreen from '../screens/PersonalInfoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,10 +44,17 @@ const RootNavigator = ({ currentUser }) => {
                 })}
             />
             <Stack.Screen
+                name="PersonalInfo"
+                component={PersonalInfoScreen}
+                options={{
+                    title: 'Tôi',
+                }}
+            />
+            <Stack.Screen
                 name="Contacts"
                 component={ContactsScreen}
                 options={{
-                    title: 'Contacts',
+                    title: 'Liên hệ',
                     headerRight: () => <HeaderRight />,
                 }}
             />

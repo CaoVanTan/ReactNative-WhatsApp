@@ -1,4 +1,4 @@
-import { Text, LogBox } from 'react-native';
+import { Text, LogBox, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useAssets } from 'expo-asset';
 import { NavigationContainer } from '@react-navigation/native';
@@ -31,7 +31,11 @@ function App() {
     }, []);
 
     if (loading) {
-        return <Text>Loading...</Text>;
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Loading...</Text>
+            </View>
+        );
     }
 
     return (
@@ -60,7 +64,11 @@ export default function Main() {
     );
 
     if (!assets) {
-        return <Text>Loading...</Text>;
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Loading...</Text>
+            </View>
+        );
     }
     return (
         <ContextWrapper>

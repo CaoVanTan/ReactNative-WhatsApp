@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Context from './Context';
 
 export default function ContextWrapper(props) {
-    return <Context.Provider value={{}}>{props.children}</Context.Provider>;
+    const [rooms, setRooms] = useState([]);
+
+    return (
+        <Context.Provider
+            value={{
+                rooms,
+                setRooms,
+            }}
+        >
+            {props.children}
+        </Context.Provider>
+    );
 }

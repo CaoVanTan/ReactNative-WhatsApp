@@ -1,16 +1,11 @@
 import { StyleSheet } from 'react-native';
-import Layout from '../../constants/Layout';
 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
         flexDirection: 'row',
-        padding: 16,
-    },
-    avatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 100,
+        marginHorizontal: 16,
+        marginVertical: 8,
     },
     rightContainer: {
         justifyContent: 'center',
@@ -20,7 +15,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    status: {},
+    timeContainer: {
+        alignItems: 'flex-end',
+    },
+    time: {
+        fontSize: 11,
+    },
+    description: {
+        fontSize: 14,
+    },
 });
 
 export default styles;

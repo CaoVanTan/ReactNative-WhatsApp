@@ -57,7 +57,11 @@ const ProfileScreen = ({ navigation }) => {
     };
 
     if (!permissionStatus) {
-        return <Text>Loading...</Text>;
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Loading...</Text>
+            </View>
+        );
     }
 
     if (permissionStatus !== 'granted') {
