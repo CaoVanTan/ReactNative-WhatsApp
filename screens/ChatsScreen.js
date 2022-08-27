@@ -55,7 +55,7 @@ export default function ChatsScreen({ navigation }) {
                         key={item.id}
                         user={getUserB(item.userB, contacts)}
                         room={item}
-                        description={item.lastMessage.text}
+                        lastMessage={item.lastMessage.text}
                         time={item.lastMessage.createdAt}
                     />
                 )}
