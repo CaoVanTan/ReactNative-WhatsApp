@@ -1,17 +1,22 @@
 // @refresh reset
-import { StyleSheet, View, FlatList, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import 'react-native-get-random-values';
-import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Actions, InputToolbar, Bubble, Composer } from 'react-native-gifted-chat';
 import { useRoute } from '@react-navigation/native';
 import { addDoc, collection, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
-import { Entypo, FontAwesome5, Fontisto, Feather, Ionicons } from '@expo/vector-icons';
+import {
+    Entypo,
+    FontAwesome5,
+    MaterialCommunityIcons,
+    Feather,
+    Ionicons,
+    AntDesign,
+    Fontisto,
+} from '@expo/vector-icons';
 import ImageView from 'react-native-image-viewing';
 
-import Chats from '../data/Chats';
-import ChatMessage from '../components/ChatMessage/ChatMessage';
-import ChatBox from '../components/ChatBox/ChatBox';
 import Colors from '../constants/Colors';
 import { auth, db } from '../firebase';
 import { pickImage, uploadImage } from '../utils';
@@ -23,17 +28,17 @@ const ChatsRoomScreen = () => {
     const [messages, setMessages] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedImageView, setSelectedImageView] = useState('');
+    const [message, setMessage] = useState('');
+    const [isFocusInput, setIsFocusInput] = useState(false);
 
     const { currentUser } = auth;
     const route = useRoute();
     const room = route.params.room;
     const selectedImage = route.params.image;
     const userB = route.params.user;
-
     const senderUser = currentUser.photoURL
         ? { name: currentUser.displayName, _id: currentUser.uid, avatar: currentUser.photoURL }
         : { name: currentUser.displayName, _id: currentUser.uid };
-
     const roomId = room ? room.id : randomId;
     const roomRef = doc(db, 'rooms', roomId);
     const roomMessageRef = collection(db, 'rooms', roomId, 'messages');
@@ -106,7 +111,6 @@ const ChatsRoomScreen = () => {
 
     const sendImage = async (uri, roomPath) => {
         const { url, fileName } = await uploadImage(uri, `images/rooms/${roomPath || roomHash}`);
-
         const message = {
             _id: fileName,
             text: '',
@@ -114,12 +118,7 @@ const ChatsRoomScreen = () => {
             user: senderUser,
             image: url,
         };
-
-        console.log(url);
-        console.log(message);
-
         const lastMessage = { ...message, text: 'Hình ảnh' };
-
         await Promise.all([addDoc(roomMessageRef, message), updateDoc(roomRef, { lastMessage })]);
     };
 
@@ -131,97 +130,187 @@ const ChatsRoomScreen = () => {
         }
     };
 
+    const onInputTextChanged = (value) => {
+        setMessage(value);
+        setIsFocusInput(true);
+    };
+
+    const renderSend = (props) => {
+        const { text, messageIdGenerator, user, onSend } = props;
+        return (
+            <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                {message.trim().length > 0 ? (
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (text && onSend) {
+                                onSend({
+                                    text: text.trim(),
+                                    user,
+                                    _id: messageIdGenerator(),
+                                });
+                            }
+
+                            setMessage('');
+                        }}
+                        activeOpacity={0.8}
+                        style={{}}
+                    >
+                        <Ionicons name="send" size={22} color={Colors.light.tint} />
+                    </TouchableOpacity>
+                ) : (
+                    <AntDesign name="like1" size={22} color={Colors.light.tint} />
+                )}
+            </View>
+        );
+    };
+
+    const renderInputToolbar = (props) => (
+        <InputToolbar
+            {...props}
+            containerStyle={{
+                backgroundColor: Colors.light.background,
+                borderTopWidth: 0,
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+            }}
+            renderActions={() => (
+                <View>
+                    {!isFocusInput ? (
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <TouchableOpacity activeOpacity={0.6}>
+                                <Entypo name="attachment" size={22} color={Colors.light.tint} />
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={0.6} onPress={handlePhotoPicker}>
+                                <Fontisto
+                                    style={{ marginLeft: 16 }}
+                                    name="camera"
+                                    size={22}
+                                    color={Colors.light.tint}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={0.6}>
+                                <FontAwesome5
+                                    style={{ marginLeft: 16, marginRight: 8 }}
+                                    name="microphone"
+                                    size={22}
+                                    color={Colors.light.tint}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <TouchableOpacity
+                            style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+                            activeOpacity={0.5}
+                            onPress={() => setIsFocusInput(false)}
+                        >
+                            <Feather name="chevron-right" size={24} color={Colors.light.tint} />
+                        </TouchableOpacity>
+                    )}
+
+                    <Actions
+                        {...props}
+                        containerStyle={{ position: 'absolute', left: 250, bottom: -4, zIndex: 1 }}
+                        icon={() => (
+                            <FontAwesome5 style={styles.emoticon} name="smile" size={22} color={Colors.light.tint} />
+                        )}
+                    />
+                </View>
+            )}
+        />
+    );
+
+    const renderComposer = (props) => (
+        <TextInput
+            style={{
+                flex: 1,
+                marginHorizontal: 16,
+                marginBottom: 0,
+                paddingLeft: 12,
+                paddingRight: 38,
+                paddingVertical: 6,
+                backgroundColor: Colors.light.backgroundIcon,
+                borderRadius: 24,
+                fontSize: 16,
+            }}
+            value={message}
+            placeholder="Nhập tin nhắn..."
+            multiline
+            autoComplete="off"
+            selectionColor={Colors.light.tint}
+            onPressIn={() => setIsFocusInput(true)}
+            onBlur={() => setIsFocusInput(false)}
+            onChangeText={onInputTextChanged}
+        />
+    );
+
+    const renderBubble = (props) => (
+        <Bubble
+            {...props}
+            textStyle={{ right: { color: Colors.light.background } }}
+            wrapperStyle={{
+                right: { backgroundColor: Colors.light.tint },
+                left: { backgroundColor: Colors.light.backgroundIcon },
+            }}
+        />
+    );
+
+    const renderMessageImage = (props) => (
+        <View style={{ borderRadius: 15 }}>
+            <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => {
+                    setModalVisible(true);
+                    setSelectedImageView(props.currentMessage.image);
+                }}
+            >
+                <Image
+                    resizeMode="cover"
+                    style={{ width: 200, height: 200 }}
+                    source={{ uri: props.currentMessage.image }}
+                />
+            </TouchableOpacity>
+            {selectedImageView ? (
+                <ImageView
+                    imageIndex={0}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                    images={[{ uri: selectedImageView }]}
+                />
+            ) : null}
+        </View>
+    );
+
+    const scrollToBottomComponent = () => (
+        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <MaterialCommunityIcons name="arrow-down" size={24} color={Colors.light.tint} />
+        </View>
+    );
+
+    /* Fixing
+        - Height của composer khi nhập nhiều ký tự.
+        - Margin top và bottom GiftedChat.
+        - Chỉ cuộn được khi chạm vào tin nhắn. (Xung đột với TouchableWithoutFeedback) -> Không đóng keyboard khi chạm vào màn hình.
+    
+    */
+
     return (
         <View style={styles.container}>
             <GiftedChat
-                onSend={onSend}
+                text={message}
                 messages={messages}
                 user={senderUser}
-                placeholder="Nhập tin nhắn..."
-                renderAvatar={null}
-                renderActions={(props) => (
-                    <Actions
-                        {...props}
-                        containerStyle={{ position: 'absolute', right: 50, bottom: -5, zIndex: 1 }}
-                        onPressActionButton={handlePhotoPicker}
-                        icon={() => (
-                            <Fontisto style={styles.camera} name="camera" size={18} color={Colors.light.tint} />
-                        )}
-                    />
-                )}
                 timeTextStyle={{ right: { color: Colors.light.background } }}
-                renderSend={(props) => {
-                    const { text, messageIdGenerator, user, onSend } = props;
-                    return (
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (text && onSend) {
-                                    onSend({
-                                        text: text.trim(),
-                                        user,
-                                        _id: messageIdGenerator(),
-                                    });
-                                }
-                            }}
-                            activeOpacity={0.8}
-                        >
-                            <Ionicons name="send" size={22} color={Colors.light.tint} />
-                        </TouchableOpacity>
-                    );
-                }}
-                renderInputToolbar={(props) => (
-                    <InputToolbar
-                        {...props}
-                        containerStyle={{
-                            justifyContent: 'center',
-                            marginHorizontal: 8,
-                            // marginBottom: 8,
-                            // marginTop: 8,
-                            paddingLeft: 16,
-                            // paddingRight: 42,
-                            // paddingVertical: 6,
-                            backgroundColor: Colors.light.backgroundIcon,
-                            borderRadius: 24,
-                            borderTopWidth: 0,
-                            fontSize: 16,
-                        }}
-                    />
-                )}
-                renderBubble={(props) => (
-                    <Bubble
-                        {...props}
-                        textStyle={{ right: { color: Colors.light.background } }}
-                        wrapperStyle={{
-                            right: { backgroundColor: Colors.light.tint },
-                            left: { backgroundColor: Colors.light.backgroundIcon },
-                        }}
-                    />
-                )}
-                renderMessageImage={(props) => (
-                    <View style={{ borderRadius: 15 }}>
-                        <TouchableOpacity
-                            activeOpacity={0.6}
-                            onPress={() => {
-                                setModalVisible(true);
-                                setSelectedImageView(props.currentMessage.image);
-                            }}
-                        >
-                            <Image
-                                resizeMode="contain"
-                                style={{ width: 200, height: 200, padding: 6, borderRadius: 15, resizeMode: 'cover' }}
-                                source={{ uri: props.currentMessage.image }}
-                            />
-                        </TouchableOpacity>
-                        {selectedImageView ? (
-                            <ImageView
-                                imageIndex={0}
-                                visible={modalVisible}
-                                onRequestClose={() => setModalVisible(false)}
-                                images={[{ uri: selectedImageView }]}
-                            />
-                        ) : null}
-                    </View>
-                )}
+                showUserAvatar
+                renderAvatar={null}
+                renderSend={renderSend}
+                renderInputToolbar={renderInputToolbar}
+                renderComposer={renderComposer}
+                renderBubble={renderBubble}
+                renderMessageImage={renderMessageImage}
+                onSend={onSend}
+                scrollToBottom
+                scrollToBottomComponent={scrollToBottomComponent}
+                scrollToBottomStyle={{ bottom: 24, left: '45%' }}
             />
         </View>
 
@@ -233,7 +322,7 @@ const ChatsRoomScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: { backgroundColor: '#fff', justifyContent: 'flex-end', flex: 1 },
+    container: { backgroundColor: '#fff', flex: 1 },
 });
 
 export default ChatsRoomScreen;
