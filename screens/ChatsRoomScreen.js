@@ -1,9 +1,9 @@
 // @refresh reset
-import { StyleSheet, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, TextInput } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import 'react-native-get-random-values';
-import { GiftedChat, Actions, InputToolbar, Bubble, Composer } from 'react-native-gifted-chat';
+import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
 import { useRoute } from '@react-navigation/native';
 import { addDoc, collection, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import {
@@ -190,7 +190,7 @@ const ChatsRoomScreen = () => {
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.6}>
                                 <FontAwesome5
-                                    style={{ marginLeft: 16, marginRight: 8 }}
+                                    style={{ marginLeft: 16 }}
                                     name="microphone"
                                     size={22}
                                     color={Colors.light.tint}
@@ -200,7 +200,7 @@ const ChatsRoomScreen = () => {
                     ) : (
                         <TouchableOpacity
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
-                            activeOpacity={0.5}
+                            activeOpacity={0.6}
                             onPress={() => setIsFocusInput(false)}
                         >
                             <Feather name="chevron-right" size={24} color={Colors.light.tint} />
@@ -231,6 +231,7 @@ const ChatsRoomScreen = () => {
                 backgroundColor: Colors.light.backgroundIcon,
                 borderRadius: 24,
                 fontSize: 16,
+                position: 'relative',
             }}
             value={message}
             placeholder="Nhập tin nhắn..."
@@ -255,7 +256,7 @@ const ChatsRoomScreen = () => {
     );
 
     const renderMessageImage = (props) => (
-        <View style={{ borderRadius: 15 }}>
+        <View>
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
@@ -288,9 +289,11 @@ const ChatsRoomScreen = () => {
 
     /* Fixing
         - Height của composer khi nhập nhiều ký tự.
-        - Margin top và bottom GiftedChat.
         - Chỉ cuộn được khi chạm vào tin nhắn. (Xung đột với TouchableWithoutFeedback) -> Không đóng keyboard khi chạm vào màn hình.
-    
+        - Icon smile bị lệch trên thiết bị khác.
+        - Margin top của message container bị lệch trên thiết bị khác.
+        - Border radius của ảnh.
+        - 
     */
 
     return (
@@ -311,6 +314,7 @@ const ChatsRoomScreen = () => {
                 scrollToBottom
                 scrollToBottomComponent={scrollToBottomComponent}
                 scrollToBottomStyle={{ bottom: 24, left: '45%' }}
+                renderChatFooter={(props) => <View {...props} style={{ marginBottom: 8 }}></View>}
             />
         </View>
 
@@ -322,7 +326,11 @@ const ChatsRoomScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: { backgroundColor: '#fff', flex: 1 },
+    container: {
+        backgroundColor: '#fff',
+        flex: 1,
+        marginTop: -32,
+    },
 });
 
 export default ChatsRoomScreen;

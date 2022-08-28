@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 import ChatsScreen from '../screens/ChatsScreen';
 import PhoneBook from '../screens/PhoneBook';
 import Status from '../screens/Status';
-import Calls from '../screens/Status';
+import Calls from '../screens/Calls';
 import HeaderRight from '../components/Header/HeaderRight';
 import HeaderAvatar from '../components/Header/HeaderAvatar';
 

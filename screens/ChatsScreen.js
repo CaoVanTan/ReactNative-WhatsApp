@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 import Colors from '../constants/Colors';
-import ChatRooms from '../data/ChatRooms';
 import SearchBox from '../components/SearchBox/SearchBox';
 import FriendListItem from '../components/FriendListItem/FriendListItem';
 import FloatButton from '../components/FloatButton/FloatButton';
@@ -67,6 +66,7 @@ export default function ChatsScreen({ navigation }) {
                         <FlatList
                             data={Users}
                             horizontal
+                            showsHorizontalScrollIndicator={false}
                             renderItem={({ item }) => (
                                 <FriendListItem
                                     style={[
