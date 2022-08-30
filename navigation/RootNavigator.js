@@ -3,15 +3,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Colors from '../constants/Colors';
 import TabNavigator from './TabNavigator';
-import ChatsRoomScreen from '../screens/ChatsRoomScreen';
-import ContactsScreen from '../screens/ContactsScreen';
-import SearchScreen from '../screens/SearchScreen';
+import ChatsRoom from '../screens/ChatsRoom';
+import Contacts from '../screens/Contacts';
+import Search from '../screens/Search';
 import HeaderRight from '../components/Header/HeaderRight';
 import ChatHeader from '../components/Header/ChatHeader';
-import HeaderTitle from '../components/Header/HeaderTitle';
 import HeaderSearch from '../components/Header/HeaderSearch';
-import ProfileScreen from '../screens/ProfileScreen';
-import PersonalInfoScreen from '../screens/PersonalInfoScreen';
+import Profile from '../screens/Profile';
+import Menu from '../screens/Menu';
+import SignIn from '../screens/SignIn';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ const RootNavigator = ({ currentUser }) => {
             {!currentUser.displayName && (
                 <Stack.Screen
                     name="Profile"
-                    component={ProfileScreen}
+                    component={Profile}
                     options={{
                         headerShown: false,
                     }}
@@ -36,22 +36,22 @@ const RootNavigator = ({ currentUser }) => {
             />
             <Stack.Screen
                 name="ChatsRoom"
-                component={ChatsRoomScreen}
+                component={ChatsRoom}
                 options={{
                     headerTitle: (props) => <ChatHeader {...props} />,
                     headerTintColor: Colors.light.tint,
                 }}
             />
             <Stack.Screen
-                name="PersonalInfo"
-                component={PersonalInfoScreen}
+                name="Menu"
+                component={Menu}
                 options={{
                     title: 'Tôi',
                 }}
             />
             <Stack.Screen
                 name="Contacts"
-                component={ContactsScreen}
+                component={Contacts}
                 options={{
                     title: 'Liên hệ',
                     headerRight: () => <HeaderRight />,
@@ -59,9 +59,16 @@ const RootNavigator = ({ currentUser }) => {
             />
             <Stack.Screen
                 name="Search"
-                component={SearchScreen}
+                component={Search}
                 options={{
                     headerTitle: () => <HeaderSearch />,
+                }}
+            />
+            <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{
+                    headerShown: false,
                 }}
             />
         </Stack.Navigator>

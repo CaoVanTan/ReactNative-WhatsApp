@@ -1,4 +1,4 @@
-import { Text, LogBox, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useAssets } from 'expo-asset';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,10 +9,6 @@ import RootNavigator from './navigation/RootNavigator';
 import SignIn from './screens/SignIn';
 import { auth } from './firebase';
 import ContextWrapper from './context/ContextWrapper';
-
-LogBox.ignoreLogs([
-    'Warning: AsyncStorage has been extracted from react-native core and will be removed in a future release.',
-]);
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +23,7 @@ function App() {
                 setCurrentUser(user);
             }
         });
+
         return () => unsubscribe();
     }, []);
 

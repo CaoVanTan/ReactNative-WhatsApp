@@ -3,7 +3,7 @@ import React from 'react';
 
 import Colors from '../../constants/Colors';
 
-const DefaultHeaderRight = (props) => {
+const HeaderRight = (props) => {
     return <View style={styles.container}>{props.children}</View>;
 };
 
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DefaultHeaderRight;
+export default HeaderRight;

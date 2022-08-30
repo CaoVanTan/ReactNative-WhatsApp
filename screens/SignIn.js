@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
-import Context from '../context/Context';
 import Colors from '../constants/Colors';
 import Button from '../components/Button/Button';
 import { signIn, signUp } from '../firebase';
@@ -9,7 +8,7 @@ import { signIn, signUp } from '../firebase';
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [mode, setMode] = useState('signUp');
+    const [mode, setMode] = useState('signIn');
 
     const handlePress = async () => {
         if (mode === 'signUp') {
@@ -21,7 +20,7 @@ const SignIn = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to WhatsApp</Text>
+            <Text style={styles.title}>Chào mừng đến với WhatsApp</Text>
             <Image style={styles.image} source={require('../assets/welcome-img.png')} resizeMode="cover" />
             <View style={styles.mainContainer}>
                 <TextInput
@@ -100,6 +99,5 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        // color: Colors.light.tint,
     },
 });

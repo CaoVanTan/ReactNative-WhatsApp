@@ -11,7 +11,7 @@ import { auth, db } from '../firebase';
 import { updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-const ProfileScreen = ({ navigation }) => {
+const Profile = ({ navigation }) => {
     const [displayName, setDisplayName] = useState('');
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [permissionStatus, setPermissionStatus] = useState(null);
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProfileScreen;
+export default Profile;

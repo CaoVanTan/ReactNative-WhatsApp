@@ -1,12 +1,11 @@
-import { Text, Image, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import React from 'react';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 import Avatar from '../Avatar/Avatar';
 import { useRoute } from '@react-navigation/native';
 
-const ChatHeaderRight = () => {
+const ChatHeader = () => {
     const route = useRoute();
     return (
         <View style={styles.container}>
@@ -14,11 +13,6 @@ const ChatHeaderRight = () => {
                 <Avatar size={36} user={route.params.user} />
                 <Text style={styles.userName}>{route.params.user.contactName || route.params.user.displayName}</Text>
             </View>
-            {/* <View style={styles.rightContainer}>
-                <Ionicons name="call" size={22} color={Colors.light.tint} />
-                <Ionicons name="videocam" size={22} color={Colors.light.tint} />
-                <MaterialIcons name="info" size={22} color={Colors.light.tint} />
-            </View> */}
         </View>
     );
 };
@@ -32,7 +26,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.light.background,
     },
     leftContainer: {
-        // flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -47,8 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // width: 120,
     },
 });
 
-export default ChatHeaderRight;
+export default ChatHeader;

@@ -23,7 +23,7 @@ import { pickImage, uploadImage } from '../utils';
 
 const randomId = nanoid();
 
-const ChatsRoomScreen = () => {
+const ChatsRoom = () => {
     const [roomHash, setRoomHash] = useState('');
     const [messages, setMessages] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -287,15 +287,6 @@ const ChatsRoomScreen = () => {
         </View>
     );
 
-    /* Fixing
-        - Height của composer khi nhập nhiều ký tự.
-        - Chỉ cuộn được khi chạm vào tin nhắn. (Xung đột với TouchableWithoutFeedback) -> Không đóng keyboard khi chạm vào màn hình.
-        - Icon smile bị lệch trên thiết bị khác.
-        - Margin top của message container bị lệch trên thiết bị khác.
-        - Border radius của ảnh.
-        - 
-    */
-
     return (
         <View style={styles.container}>
             <GiftedChat
@@ -333,4 +324,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ChatsRoomScreen;
+export default ChatsRoom;

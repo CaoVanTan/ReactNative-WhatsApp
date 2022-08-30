@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { auth } from '../../firebase';
 
 import Colors from '../../constants/Colors';
+import Avatar from '../Avatar/Avatar';
 
 const HeaderAvatar = () => {
     const user = auth.currentUser;
@@ -12,18 +13,12 @@ const HeaderAvatar = () => {
     const navigation = useNavigation();
 
     const handlePress = () => {
-        navigation.navigate('PersonalInfo');
+        navigation.navigate('Menu');
     };
 
     return (
         <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={handlePress}>
-            <Image
-                style={styles.avatar}
-                source={{
-                    uri: user.photoURL,
-                }}
-                resizeMode="contain"
-            />
+            <Avatar size={40} user={user} />
         </TouchableOpacity>
     );
 };
@@ -34,13 +29,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 8,
-        backgroundColor: Colors.light.background,
-    },
-    avatar: {
-        width: 40,
-        height: 40,
         marginHorizontal: 8,
-        borderRadius: 20,
+        backgroundColor: Colors.light.background,
     },
 });
 

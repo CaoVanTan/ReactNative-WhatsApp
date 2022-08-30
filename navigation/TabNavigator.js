@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
-import ChatsScreen from '../screens/ChatsScreen';
+import Chats from '../screens/Chats';
 import PhoneBook from '../screens/PhoneBook';
 import Status from '../screens/Status';
 import Calls from '../screens/Calls';
@@ -47,7 +47,7 @@ const TabNavigator = () => {
         >
             <Tab.Screen
                 name="Chats"
-                component={ChatsScreen}
+                component={Chats}
                 options={{
                     title: 'Đoạn chat',
                     headerTitleStyle: {

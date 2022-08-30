@@ -12,7 +12,7 @@ import { auth, db } from '../firebase';
 import ListItem from '../components/ListItem/ListItem';
 import userContact from '../hook/useHook';
 
-export default function ChatsScreen({ navigation }) {
+export default function Chats({ navigation }) {
     const { currentUser } = auth;
     const { rooms, setRooms, setUnfilteredRooms } = useContext(Context);
     const contacts = userContact();
